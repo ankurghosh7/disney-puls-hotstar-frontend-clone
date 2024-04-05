@@ -1,12 +1,11 @@
-import React from "react";
-import axios from "axios";
-function MovieVideo({ id }: { id: number }) {
+function MovieVideo({ id }: { id: string }) {
+  const movieId = parseInt(id);
   return (
     <div>
       <iframe
         width="560"
         height="315"
-        src={`https://vidsrc.to/embed/movie/${id}`}
+        src={`https://vidsrc.to/embed/movie/${movieId}`}
         title="YouTube video player"
         frameBorder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

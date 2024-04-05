@@ -109,16 +109,19 @@ export const trandingMovies = async (
   }
 };
 
-export const trasndingSeries = async (page: Number, date: Date) => {
+export const trasndingSeries = async (
+  page: Number,
+  date: number
+): Promise<trasndingSeriesProps> => {
   try {
-    const response: trasndingSeriesProps = await axios.get(
+    const response = await axios.get(
       `https://api.themoviedb.org/3/discover/tv?certification_country=IN&include_adult=true&include_video=false&language=hi-IN&page=${page}&region=IN&release_date.gte=2023-01-01&release_date.lte=${date}&sort_by=popularity.desc&vote_average.lte=10&watch_region=IN&with_original_language=hi&with_runtime.gte=0&with_runtime.lte=400`,
       theMovieDBApiOptions
     );
-    return response;
+    return response.data;
   } catch (error) {
     console.error(`trasndingMovies API error: ${error}`);
-    return error;
+    throw error;
   }
 };
 
@@ -140,7 +143,7 @@ export const getMovieDetails = async (
   }
 };
 
-type movieImagesProps = {
+export type movieImagesProps = {
   backdrops: {
     aspect_ratio: Number;
     height: Number;

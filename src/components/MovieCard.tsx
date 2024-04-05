@@ -2,7 +2,7 @@ import React from "react";
 
 function MovieCard({ imageUrl, title }: { imageUrl: string; title: string }) {
   return (
-    <div className=" bg-slate-400 w-72 h-[28rem] rounded-lg relative overflow-hidden">
+    <div className=" bg-slate-400 w-72 h-[28rem] rounded-lg relative overflow-hidden mx-auto">
       <img
         src={imageUrl}
         alt=""
