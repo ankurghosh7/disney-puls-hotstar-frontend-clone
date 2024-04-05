@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+movie.json
+movieDeatils.json
+movieImagesandvideos.json
