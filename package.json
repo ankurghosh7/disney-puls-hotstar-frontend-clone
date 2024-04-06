@@ -25,6 +25,7 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "^4.14.0",
     "@tanstack/react-query-devtools": "^5.28.14",
     "@types/node": "^20.12.4",
     "@types/react": "^18.2.66",
