@@ -12,7 +12,7 @@ function NabBar() {
         {navItems.map((item) => (
           <li key={item.name}>
             <NavLink to={item.path}>
-              {({ isActive, isPending, isTransitioning }) => (
+              {({ isActive }) => (
                 <span
                   className={
                     isActive ? "font-bold text-white" : "text-slate-400"

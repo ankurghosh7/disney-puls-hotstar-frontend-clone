@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import React, { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 import TrandingMovieGroup from "@/components/TrandingMovieGroup";
 import { Link } from "react-router-dom";
 import TrandingSeriesGroup from "@/components/TrandingSeriesGroup";
@@ -13,7 +13,7 @@ function Home() {
   const date = parseInt(getCurrentDate());
   const {
     data: trandingData,
-    error: trandingError,
+
     isLoading: trandingLoding,
   } = useQuery({
     queryKey: ["trandingMovies", date],
@@ -22,13 +22,16 @@ function Home() {
   });
   const {
     data: trasndingSeriesData,
-    isError: TrandingSeriesError,
+ 
     isLoading: TrandingSeriesLoding,
   } = useQuery({
     queryKey: ["trandingSeries", date],
     queryFn: () => trasndingSeries(1, date),
     staleTime: 60 * 60 * 1000,
   });
+  useEffect(()=>{
+    document.title = "WatcherHub Home";
+  },[])
   return (
     <main className="min-h-screen w-full px-5 md:px-10 xl:px-20">
       <SearchBox className="xl:w-1/2 mx-auto" />

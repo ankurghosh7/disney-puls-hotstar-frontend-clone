@@ -1,4 +1,4 @@
-import React from "react";
+
 import MovieCard from "./MovieCard";
 import { Link } from "react-router-dom";
 import type { trasndingSeriesProps } from "@/api/getMovieData";

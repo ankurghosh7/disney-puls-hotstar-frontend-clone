@@ -6,7 +6,7 @@ function MovieDeatilsShow({
   movieImages: movieImagesProps;
   movieData: movieDetailsProps;
 }) {
-  const poster = movieImages.posters[0].file_path;
+  // const poster = movieImages.posters[0].file_path;
   return (
     <div className={`lg:h-[calc(100vh-80px)]  relative w-full `}>
       <img

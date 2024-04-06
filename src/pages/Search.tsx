@@ -1,8 +1,6 @@
-import { searchMovies } from "@/api/getMovieData";
 import SearchBox from "@/components/SearchBox";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React from "react";
 import { useParams } from "react-router-dom";
 import { theMovieDBApiOptions } from "@/lib/constants";
 import { Link, useSearchParams } from "react-router-dom";
@@ -14,6 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 import MovieCard from "@/components/MovieCard";
 import { IoIosArrowBack } from "react-icons/io";
+import { useEffect } from "react";
 
 function Search() {
   const { search } = useParams<{ search: string }>();
@@ -41,6 +40,9 @@ function Search() {
       return prev;
     });
   };
+  useEffect(() => {
+    document.title = `WatcherHub - ${search}`;
+  }, []);
   return (
     <div className="px-5 xl:px-20 mb-10 relative">
       <SearchBox className="w-full md:w-1/2 mx-auto" value={search} />

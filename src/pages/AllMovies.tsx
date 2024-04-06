@@ -1,6 +1,6 @@
 import { getCurrentDate } from "@/lib/CurrentDate";
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import MovieCard from "../components/MovieCard";
 import { Link, useSearchParams } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
@@ -41,6 +41,7 @@ function AllMovies() {
   };
   useEffect(() => {
     window.scrollY = 0;
+    document.title = "WatcherHub All Movies";
   }, [searchParams, setSearchParams, page]);
   return (
     <div className="px-5 xl:px-20 mb-10 relative">
