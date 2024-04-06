@@ -21,7 +21,6 @@ function Search() {
     search: "",
     page: "1",
   });
-  console.log(search);
   if (!search) {
     return <div>Search something</div>;
   }
@@ -36,7 +35,6 @@ function Search() {
     staleTime: 1000 * 60 * 60,
     placeholderData: keepPreviousData,
   });
-  console.log(data);
   const updatePage = (p: number) => {
     setSearchParams((prev) => {
       prev.set("page", Math.max(page + p, 1).toString());

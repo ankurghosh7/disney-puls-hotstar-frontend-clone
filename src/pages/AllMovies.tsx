@@ -42,7 +42,6 @@ function AllMovies() {
   useEffect(() => {
     window.scrollY = 0;
   }, [searchParams, setSearchParams, page]);
-  console.log(data);
   return (
     <div className="px-5 xl:px-20 mb-10 relative">
       <div className="flex flex-wrap items-center md:my-10 justify-center space-y-5 md:space-y-0 md:justify-between">
