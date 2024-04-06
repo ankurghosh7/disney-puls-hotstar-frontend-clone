@@ -2,8 +2,9 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import { lazy } from "react";
 const Home = lazy(() => import("./pages/Home"));
-const Search = lazy(() => import("./components/SearchBox"));
+const Search = lazy(() => import("./pages/Search"));
 const MovieDetails = lazy(() => import("./pages/MovieDetails"));
+const AllMovies = lazy(() => import("./pages/AllMovies"));
 export const BrowserRouter = createBrowserRouter([
   {
     path: "/",
@@ -16,7 +17,7 @@ export const BrowserRouter = createBrowserRouter([
       },
       {
         path: "/all-movies",
-        element: <div>movies</div>,
+        element: <AllMovies />,
       },
       {
         path: "/all-series",

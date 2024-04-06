@@ -7,6 +7,8 @@ import SearchBox from "@/components/SearchBox";
 import { trandingMovies, trasndingSeries } from "@/api/getMovieData";
 import { useQuery } from "@tanstack/react-query";
 import { getCurrentDate } from "@/lib/CurrentDate";
+import { MovieCardLoder } from "@/components/MovieCard";
+
 function Home() {
   const date = parseInt(getCurrentDate());
   const {
@@ -27,25 +29,25 @@ function Home() {
     queryFn: () => trasndingSeries(1, date),
     staleTime: 60 * 60 * 1000,
   });
-  console.log(trandingData);
-  console.log(trasndingSeriesData);
   return (
-    <div className="min-h-screen w-full px-5 md:px-10 xl:px-20">
+    <main className="min-h-screen w-full px-5 md:px-10 xl:px-20">
       <SearchBox />
-      <div className="space-y-5">
+      <section className="space-y-5">
         <div className="flex justify-between items-center">
           <h3 className="text-xl">Trending Movies</h3>
           <Link to={"/all-movies"}>
             <Button>All Movies</Button>
           </Link>
         </div>
-        {trandingLoding ? (
-          <p>Loading...</p>
-        ) : (
-          <TrandingMovieGroup data={trandingData!} />
-        )}
-      </div>
-      <div className="space-y-5">
+        <Suspense fallback={<MovieCardLoder />}>
+          {trandingLoding ? (
+            <MovieCardLoder />
+          ) : (
+            <TrandingMovieGroup data={trandingData!} />
+          )}
+        </Suspense>
+      </section>
+      <section className="space-y-5">
         <div className="flex justify-between items-center">
           <h3 className="text-xl">Trending Series</h3>
           <Link to={"/all-series"}>
@@ -53,12 +55,12 @@ function Home() {
           </Link>
         </div>
         {TrandingSeriesLoding ? (
-          <div></div>
+          <MovieCardLoder />
         ) : (
           <TrandingSeriesGroup data={trasndingSeriesData!} />
         )}
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }
 
