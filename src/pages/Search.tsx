@@ -48,7 +48,7 @@ function Search() {
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-5 md:p-5 my-10">
         {isLoading && <div>Loading...</div>}
         {error && <div>Error...</div>}
-        {data?.data?.results.map((movie) => (
+        {data?.data.results.map((movie: any) => (
           <Link to={`/movies/${movie?.id}`}>
             <MovieCard
               key={movie.id}
