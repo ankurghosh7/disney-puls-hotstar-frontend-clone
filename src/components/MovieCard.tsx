@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/carousel";
 function MovieCard({ imageUrl, title }: { imageUrl: string; title: string }) {
   return (
-    <div className=" bg-slate-400 w-72 h-[28rem] rounded-lg relative overflow-hidden mx-auto">
+    <div className=" bg-slate-400 w-full  h-[18rem] md:h-[25rem] xl:h-[24rem] rounded-lg relative overflow-hidden mx-auto">
       <img
         src={imageUrl}
         alt=""

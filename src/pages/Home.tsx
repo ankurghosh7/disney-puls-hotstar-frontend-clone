@@ -31,7 +31,7 @@ function Home() {
   });
   return (
     <main className="min-h-screen w-full px-5 md:px-10 xl:px-20">
-      <SearchBox />
+      <SearchBox className="xl:w-1/2 mx-auto" />
       <section className="space-y-5">
         <div className="flex justify-between items-center">
           <h3 className="text-xl">Trending Movies</h3>

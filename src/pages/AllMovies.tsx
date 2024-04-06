@@ -1,23 +1,21 @@
-import { searchMovies, trandingMovies } from "@/api/getMovieData";
 import { getCurrentDate } from "@/lib/CurrentDate";
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
-import React from "react";
+import React, { useEffect } from "react";
 import MovieCard from "../components/MovieCard";
-import { useSearchParams } from "react-router-dom";
-
-const date = parseInt(getCurrentDate());
+import { Link, useSearchParams } from "react-router-dom";
+import { IoIosArrowBack } from "react-icons/io";
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
 } from "@/components/ui/pagination";
 import axios from "axios";
 import { theMovieDBApiOptions } from "@/lib/constants";
+import { Button } from "@/components/ui/button";
+import SearchBox from "@/components/SearchBox";
+
 function AllMovies() {
+  const date = parseInt(getCurrentDate());
   let [searchParams, setSearchParams] = useSearchParams({ page: "1" });
   const page = parseInt(searchParams.get("page") || "1");
   const { data, error, isLoading } = useQuery({
@@ -41,40 +39,59 @@ function AllMovies() {
       return prev;
     });
   };
+  useEffect(() => {
+    window.scrollY = 0;
+  }, [searchParams, setSearchParams, page]);
   console.log(data);
   return (
-    <div>
-      <h1 className="text-3xl font-bold text-center mt-10">All Movies</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 p-5">
+    <div className="px-5 xl:px-20 mb-10 relative">
+      <div className="flex flex-wrap items-center md:my-10 justify-center space-y-5 md:space-y-0 md:justify-between">
+        <h1 className="text-xl md:text-3xl font-bold text-center">
+          All Movies
+        </h1>
+        <SearchBox className="w-full md:w-80" />
+      </div>
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-5 md:p-5 my-10">
         {isLoading && <div>Loading...</div>}
         {error && <div>Error...</div>}
         {data?.results.map((movie: any) => (
-          <MovieCard
-            key={movie.id}
-            imageUrl={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-            title={movie.title}
-          />
+          <Link to={`/movies/${movie?.id}`}>
+            <MovieCard
+              key={movie.id}
+              imageUrl={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+              title={movie.title}
+            />
+          </Link>
         ))}
       </div>
       <Pagination>
         <PaginationContent>
           <PaginationItem>
-            <PaginationPrevious
-              aria-disabled={page < 1}
+            <Button
+              variant={"outline"}
+              className={`space-x-2 `}
               onClick={() => updatePage(-1)}
-              className={`${
-                page <= 1 ? "cursor-not-allowed" : "cursor-pointer"
-              }`}
-            />
+              disabled={page <= 1}
+            >
+              <IoIosArrowBack />
+              <span>Previous</span>
+            </Button>
           </PaginationItem>
+
           <PaginationItem>
-            <PaginationLink isActive={page == 1}>1</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationNext onClick={() => updatePage(1)} />
+            <Button
+              variant={"outline"}
+              className={`space-x-2 `}
+              onClick={() => updatePage(1)}
+              disabled={page >= data?.total_pages}
+            >
+              <span>Next</span>
+              <IoIosArrowBack className="rotate-180	" />
+            </Button>
           </PaginationItem>
         </PaginationContent>
       </Pagination>
+      <div className="hidden md:block fixed bottom-5 right-5  w-10 h-10 bg-gray-100 rounded-full"></div>
     </div>
   );
 }

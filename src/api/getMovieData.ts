@@ -75,17 +75,42 @@ export type trasndingSeriesProps = {
   total_pages: Number;
   total_results: Number;
 };
-
-export const searchMovies = async (query: String, page: Number) => {
+export type searchMoviesProps = {
+  page: Number;
+  results: {
+    adult: Boolean;
+    backdrop_path: String;
+    id: Number;
+    title: String;
+    original_language: String;
+    original_title: String;
+    overview: String;
+    poster_path: String;
+    media_type: String;
+    genre_ids: Array<Number>;
+    popularity: Number;
+    release_date: Date;
+    video: Boolean;
+    vote_average: Number;
+    vote_count: Number;
+  }[];
+  total_pages: Number;
+  total_results: Number;
+};
+// https://api.themoviedb.org/3/search/multi?query=Farrey%20&include_adult=false&language=en-US&page=1
+export const searchMovies = async (
+  query: String,
+  page: Number
+): Promise<searchMoviesProps> => {
   try {
     const response = await axios.get(
-      `https://api.themoviedb.org/3/search/multi?query=${query}&include_adult=true&language=en-IN&page=${page}`,
+      `https://api.themoviedb.org/3/search/multi?query=${query}&include_adult=true&language=en-US&page=${page}`,
       theMovieDBApiOptions
     );
     return response.data.data;
   } catch (error) {
     console.error(`trasndingMovies API error: ${error}`);
-    return error;
+    throw error;
   }
 };
 
@@ -119,8 +144,7 @@ const allMovies = async (page: Number, date: Number) => {
     console.error(`trasndingMovies API error: ${error}`);
     return error;
   }
-
-}
+};
 export const trasndingSeries = async (
   page: Number,
   date: number

@@ -6,10 +6,11 @@ function MovieDeatilsShow({
   movieImages: movieImagesProps;
   movieData: movieDetailsProps;
 }) {
+  const poster = movieImages.posters[0].file_path;
   return (
     <div className={`lg:h-[calc(100vh-80px)]  relative w-full `}>
       <img
-        src={`https://media.themoviedb.org/t/p/w1920_and_h800_face${movieImages.backdrops[1].file_path}`}
+        src={`https://media.themoviedb.org/t/p/w1920_and_h800_face${movieImages.backdrops[0].file_path}`}
         alt=""
         className="absolute w-full h-full opacity-30 object-cover -z-10"
       />

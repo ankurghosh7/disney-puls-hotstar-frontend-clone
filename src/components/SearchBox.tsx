@@ -3,10 +3,17 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import { cn } from "@/lib/utils";
 
-function SearchBox() {
+function SearchBox({
+  className,
+  value,
+}: {
+  className?: string;
+  value?: string;
+}) {
   const navigate = useNavigate();
-  const [search, setSearch] = React.useState("");
+  const [search, setSearch] = React.useState(value || "");
 
   const searchMoviesFn = () => {
     if (search.trim() === "") {
@@ -19,7 +26,7 @@ function SearchBox() {
     setSearch(e.target.value);
   };
   return (
-    <div className="xl:w-1/2 mx-auto">
+    <div className={cn("w-full", className)}>
       <div className="flex h-12 w-full rounded-xl border border-input bg-transparent shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-within:outline-none focus-within:ring-1 focus-within:ring-ring disabled:cursor-not-allowed disabled:opacity-50 overflow-hidden">
         <input
           type="text"
