@@ -132,18 +132,18 @@ export const trandingMovies = async (
     throw error;
   }
 };
-const allMovies = async (page: Number, date: Number) => {
-  try {
-    const response = await axios.get(
-      `https://api.themoviedb.org/3/discover/movie?certification_country=IN&include_adult=true&include_video=false&language=en-IN&page=${page}&region=IN&release_date.gte=2023-01-01&release_date.lte=${date}&sort_by=popularity.desc&vote_average.lte=10&watch_region=IN&with_original_language=hi&with_runtime.gte=0&with_runtime.lte=400`,
-      theMovieDBApiOptions
-    );
-    return response.data;
-  } catch (error) {
-    console.error(`trasndingMovies API error: ${error}`);
-    return error;
-  }
-};
+// const allMovies = async (page: Number, date: Number) => {
+//   try {
+//     const response = await axios.get(
+//       `https://api.themoviedb.org/3/discover/movie?certification_country=IN&include_adult=true&include_video=false&language=en-IN&page=${page}&region=IN&release_date.gte=2023-01-01&release_date.lte=${date}&sort_by=popularity.desc&vote_average.lte=10&watch_region=IN&with_original_language=hi&with_runtime.gte=0&with_runtime.lte=400`,
+//       theMovieDBApiOptions
+//     );
+//     return response.data;
+//   } catch (error) {
+//     console.error(`trasndingMovies API error: ${error}`);
+//     return error;
+//   }
+// };
 export const trasndingSeries = async (
   page: Number,
   date: number

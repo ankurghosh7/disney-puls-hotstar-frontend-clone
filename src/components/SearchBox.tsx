@@ -1,5 +1,4 @@
-import { searchMovies } from "@/api/getMovieData";
-import { useQuery } from "@tanstack/react-query";
+
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
