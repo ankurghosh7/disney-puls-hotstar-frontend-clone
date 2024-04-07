@@ -30,7 +30,7 @@ function MovieDetails() {
     document.title = `${movieDetailsData?.title} - WatcherHub`;
   }, []);
   return (
-    <div className="h-screen w-full">
+    <div className="h-fit w-full space-y-20 mb-10">
       {movieDetailsLoding || movieImagesIsloding ? (
         <div>
           <p>

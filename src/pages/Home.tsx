@@ -33,11 +33,11 @@ function Home() {
     document.title = "WatcherHub Home";
   },[])
   return (
-    <main className="min-h-screen w-full px-5 md:px-10 xl:px-20">
+    <main className="min-h-screen w-full px-5 md:px-10 xl:px-20 space-y-8">
       <SearchBox className="xl:w-1/2 mx-auto" />
       <section className="space-y-5">
         <div className="flex justify-between items-center">
-          <h3 className="text-xl">Trending Movies</h3>
+          <h3 className="text-lg md:text-xl">Trending Movies</h3>
           <Link to={"/all-movies"}>
             <Button>All Movies</Button>
           </Link>
@@ -52,7 +52,7 @@ function Home() {
       </section>
       <section className="space-y-5">
         <div className="flex justify-between items-center">
-          <h3 className="text-xl">Trending Series</h3>
+          <h3 className="text-lg md:text-xl">Trending Series</h3>
           <Link to={"/all-series"}>
             <Button>All Series</Button>
           </Link>
