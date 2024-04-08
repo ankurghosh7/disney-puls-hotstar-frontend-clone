@@ -60,6 +60,7 @@ function AllMovies() {
               key={movie.id}
               imageUrl={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
               title={movie.title}
+              className="h-[18rem]"
             />
           </Link>
         ))}

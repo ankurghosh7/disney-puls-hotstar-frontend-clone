@@ -25,7 +25,7 @@ export type movieDetailsProps = {
   production_countries: { iso_3166_1: String; name: String }[];
   release_date: String;
   revenue: Number;
-  runtime: Number;
+  runtime: number;
   spoken_languages: { english_name: String; iso_639_1: String; name: String }[];
   status: String;
   tagline: String;

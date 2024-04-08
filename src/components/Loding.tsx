@@ -1,7 +1,7 @@
 function Loding() {
   return (
-    <div>
-      <h1>Loading...</h1>
+    <div className="w-full h-screen flex items-center justify-center">
+      <h1 className="text-xl">Loading...</h1>
     </div>
   );
 }

@@ -5,6 +5,7 @@ const Home = lazy(() => import("./pages/Home"));
 const Search = lazy(() => import("./pages/Search"));
 const MovieDetails = lazy(() => import("./pages/MovieDetails"));
 const AllMovies = lazy(() => import("./pages/AllMovies"));
+const Contact = lazy(() => import("./pages/Contact"));
 export const BrowserRouter = createBrowserRouter([
   {
     path: "/",
@@ -25,7 +26,7 @@ export const BrowserRouter = createBrowserRouter([
       },
       {
         path: "/contact",
-        element: <div>contact</div>,
+        element: <Contact />,
       },
       {
         path: "/movies/:id",

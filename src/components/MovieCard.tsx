@@ -6,9 +6,23 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-function MovieCard({ imageUrl, title }: { imageUrl: string; title: string }) {
+import { cn } from "@/lib/utils";
+function MovieCard({
+  imageUrl,
+  title,
+  className,
+}: {
+  imageUrl: string;
+  title: string;
+  className?: string;
+}) {
   return (
-    <div className=" bg-slate-400 w-full  h-[18rem] md:h-[25rem] xl:h-[24rem] rounded-lg relative overflow-hidden mx-auto">
+    <div
+      className={cn(
+        "w-full  h-[20rem] md:h-[25rem] xl:h-[24rem] rounded-lg relative overflow-hidden mx-auto",
+        className
+      )}
+    >
       <img
         src={imageUrl}
         alt=""
