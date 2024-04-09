@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
-// import { ToastClose } from "@radix-ui/react-toast";
 
 function Contact() {
   const { toast } = useToast();
