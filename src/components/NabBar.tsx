@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { Button } from "./ui/button";
 import { HiMenuAlt2 } from "react-icons/hi";
 import {
@@ -9,6 +9,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { useMediaQuery } from "usehooks-ts";
+import logo from "../../public/watcherhub_logo.svg";
 function NabBar() {
   const navItems = [
     { name: "Home", path: "/" },
@@ -18,9 +19,14 @@ function NabBar() {
   const isTablet = useMediaQuery("(min-width: 640px)");
   return (
     <header className="flex justify-between sm:grid sm:justify-normal grid-cols-3 lg:px-10 xl:px-20 p-5">
-      <h1 className="text-xl md:text-2xl col-span-2 md:col-span-1">
-        watcherhub
-      </h1>
+      <Link to={"/"}>
+        <div className="flex items-center space-x-2">
+          <img src={logo} alt="logo" className="w-8 h-8 md:w-12 md:h-12" />
+          <h1 className="text-xl md:text-2xl col-span-2 md:col-span-1 logo_font font-extrabold">
+            watcherhub
+          </h1>
+        </div>
+      </Link>
       {isTablet ? (
         <ul
           className={` bg-transparent flex  space-x-8 justify-center items-center `}

@@ -10,18 +10,22 @@ function Contact() {
     message: "",
   });
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!fromValue.name || !fromValue.email || !fromValue.message) {
-      toast({
-        variant: "destructive",
-        title: "Please fill all the fields",
-        description: "Name, Email and Message are required",
-        duration: 1000,
-      });
-      return;
-    }
-    console.log(fromValue);
+    // if (!fromValue.name || !fromValue.email || !fromValue.message) {
+    //   toast({
+    //     variant: "destructive",
+    //     title: "Please fill all the fields",
+    //     description: "Name, Email and Message are required",
+    //     duration: 1000,
+    //   });
+    //   return;
+    // }
+    toast({
+      title: "Currently this feature is not available due to some issues",
+      description: "Please try again later.",
+      duration: 3000,
+    });
   };
   return (
     <div className="h-[calc(100vh-80px)] w-full px-5 select-none">
