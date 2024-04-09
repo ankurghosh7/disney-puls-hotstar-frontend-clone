@@ -119,7 +119,7 @@ Don't forget to give the project a star! Thanks again!
 
 ## [License](https://github.com/iharsh234/WebApp/blob/master/LICENSE.md)
 
-MIT © [Harsh Vijay ](https://github.com/iharsh234)
+MIT © [Ankur Ghosh ](https://github.com/ankur678)
 
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
