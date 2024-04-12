@@ -18,7 +18,7 @@ function NabBar() {
 
   const isTablet = useMediaQuery("(min-width: 640px)");
   return (
-    <header className="flex justify-between sm:grid sm:justify-normal grid-cols-3 lg:px-10 xl:px-20 p-5">
+    <header className="flex justify-between sm:grid sm:justify-normal grid-cols-3 lg:px-10 xl:px-20 p-5 relative z-10">
       <Link to={"/"}>
         <div className="flex items-center space-x-2">
           <img src={logo} alt="logo" className="w-8 h-8 md:w-12 md:h-12" />

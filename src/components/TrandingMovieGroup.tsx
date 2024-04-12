@@ -21,7 +21,7 @@ function TrandingMovieGroup({ data }: { data: trasndingMoviesProps }) {
           {data.results.map((movie, index) => (
             <CarouselItem
               key={index}
-              className="basis-1/2 lg:basis-1/4"
+              className="basis-1/2 lg:basis-1/6"
             >
               <Link to={`/movies/${movie.id}`} key={index}>
                 <MovieCard
