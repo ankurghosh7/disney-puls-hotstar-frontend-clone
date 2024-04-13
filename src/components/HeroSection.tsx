@@ -1,31 +1,43 @@
-import { nowPlyingMovies } from "@/api/HeroFeature";
+import { imagesProps, nowPlyingMoviesProps } from "@/helpers/HeroFeature";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "./ui/button";
 import { movies } from "@/constants/GenreId";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
-// import BackgroundVideoPlyer from "./BackgroundVideoPlyer";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { FiPlus } from "react-icons/fi";
+import BackgroundVideoPlyer from "./BackgroundVideoPlyer";
+import axios from "axios";
+import { theMovieDBApiOptions } from "@/lib/constants";
 
-const HeroSection = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [showTrailer, setShowTrailer] = useState(false);
-  const { data, isLoading } = useQuery({
-    queryKey: ["nowPlayingMovies"],
-    queryFn: nowPlyingMovies,
+const HeroSection = ({ data }: { data: nowPlyingMoviesProps[] }) => {
+  const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [showTrailer, setShowTrailer] = useState<boolean>(false);
+
+  const backdrop_path =
+    data[activeIndex].backdrop_path || data[activeIndex].poster_path;
+  const { data: images } = useQuery({
+    queryKey: ["fatchNowPlayingMoviesImages", activeIndex],
+    queryFn: async () => {
+      const id = data[activeIndex].id;
+      const response = await axios.get<imagesProps>(
+        `https://api.themoviedb.org/3/movie/${id}/images`,
+        theMovieDBApiOptions
+      );
+      return response.data;
+    },
+    enabled: data.length > 0,
     staleTime: 60 * 60 * 1000,
   });
-  if (isLoading) return <div>Loading...</div>;
-  if (data === undefined || data?.length < 0) return <div>No Data</div>;
-  const backdrop_path =
-    data[activeIndex].backdrop_path ||
-    data[activeIndex].images.backdrops[0]?.file_path ||
-    data[activeIndex].poster_path;
-  function showTrailerFn() {
-    setInterval(() => {
+  console.log(images);
+  useEffect(() => {
+    const timer = setTimeout(() => {
       setShowTrailer(true);
-    }, 2000);
-  }
-  showTrailerFn();
+    }, 2000); // 2 seconds
+
+    return () => clearTimeout(timer);
+  }, [activeIndex, showTrailer, setActiveIndex]);
+
   return (
     <div className="">
       <div
@@ -34,18 +46,16 @@ const HeroSection = () => {
           backgroundImage: `url(https://media.themoviedb.org/t/p/original${backdrop_path})`,
         }}
       >
-        {/* <div className="relative z-10">
-          {showTrailer && <BackgroundVideoPlyer id={data[activeIndex].id} />}
-        </div> */}
-        {/* <BackgroundVideoPlyer id={data[activeIndex].id} /> */}
+        {showTrailer && <BackgroundVideoPlyer id={data[activeIndex].id} />}
       </div>
+      <div className="md:absolute md:h-[100vh] md:w-full md:bg-transparent md:top-0 md:left-0 z-10"></div>
       <div className="flex justify-between w-full items-end">
-        <div className="relative z-10 lg:pt-48 lg:max-w-[30vw] space-y-5">
+        <div className="relative z-10 lg:pt-60 lg:max-w-[30vw] space-y-5">
           <div className="space-y-4">
-            <div className="w-fit h-20 bg-cover">
-              {data[activeIndex].images.logos[0]?.file_path ? (
+            <div className="w-fit bg-cover lg:h-20">
+              {images?.logos[0]?.file_path ? (
                 <img
-                  src={`https://media.themoviedb.org/t/p/original${data[activeIndex].images.logos[0]?.file_path}`}
+                  src={`https://media.themoviedb.org/t/p/original${images?.logos[0]?.file_path}`}
                   alt=""
                   className="w-80 "
                 />
@@ -76,11 +86,15 @@ const HeroSection = () => {
               ))}
             </div>
           </div>
-          <div className="flex space-x-4">
-            <Button className="bg-white text-black text-base flex-1 h-12 rounded-lg">
-              View Now
+          <div className="flex space-x-4 items-center">
+            <Link to={`/movies/${data[activeIndex].id}`} className="flex-1">
+              <Button className="bg-white text-black text-base w-full  h-12 rounded-lg">
+                View Now
+              </Button>
+            </Link>
+            <Button className=" bg-white/30" variant={"ghost"}>
+              <FiPlus />
             </Button>
-            <Button className=" bg-white/30 h-12">Add to Watch List</Button>
           </div>
         </div>
         <div className="">

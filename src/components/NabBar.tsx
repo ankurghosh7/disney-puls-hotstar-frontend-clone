@@ -21,7 +21,7 @@ function NabBar() {
     <header className="flex justify-between sm:grid sm:justify-normal grid-cols-3 lg:px-10 xl:px-20 p-5 relative z-10">
       <Link to={"/"}>
         <div className="flex items-center space-x-2">
-          <img src={logo} alt="logo" className="w-8 h-8 md:w-12 md:h-12" />
+          <img src={logo} alt="logo" className="w-8 h-8 md:w-10 md:h-10" />
           <h1 className="text-xl md:text-2xl col-span-2 md:col-span-1 logo_font font-extrabold">
             watcherhub
           </h1>

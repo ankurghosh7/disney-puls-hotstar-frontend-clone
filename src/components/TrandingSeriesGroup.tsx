@@ -1,7 +1,6 @@
-
 import MovieCard from "./MovieCard";
 import { Link } from "react-router-dom";
-import type { trasndingSeriesProps } from "@/api/getMovieData";
+import type { trasndingSeriesProps } from "@/helpers/getMovieData";
 
 import {
   Carousel,

@@ -1,6 +1,6 @@
 import { theMovieDBApiOptions } from "@/lib/constants";
 import axios from "axios";
-interface nowPlyingMoviesGetProps {
+export interface nowPlyingMoviesGetProps {
   dates: {
     maximum: string;
     minimum: string;
@@ -25,7 +25,7 @@ interface nowPlyingMoviesGetProps {
   total_pages: number;
   total_results: number;
 }
-interface imagesProps {
+export interface imagesProps {
   backdrops: {
     aspect_ratio: number;
     file_path: string;
@@ -55,7 +55,7 @@ interface imagesProps {
     width: number;
   }[];
 }
-interface nowPlyingMoviesProps {
+export interface nowPlyingMoviesProps {
   adult: boolean;
   backdrop_path: string;
   genre_ids: number[];
@@ -70,26 +70,25 @@ interface nowPlyingMoviesProps {
   video: boolean;
   vote_average: number;
   vote_count: number;
-  images: imagesProps;
+  // images: imagesProps;
 }
-export const nowPlyingMovies = async (): Promise<nowPlyingMoviesProps[]> => {
+export const nowPlayingMovies = async (): Promise<nowPlyingMoviesProps[]> => {
   const response = await axios.get<nowPlyingMoviesGetProps>(
     "https://api.themoviedb.org/3/movie/now_playing?language=en-IN&page=1&region=IN&page=1",
     theMovieDBApiOptions
   );
   console.log(response);
-  const data = response.data.results.slice(0, 9);
-  console.log(data);
-  let res: nowPlyingMoviesProps[] = [];
-  for (let i in data) {
-    const images = await axios.get<imagesProps>(
-      `https://api.themoviedb.org/3/movie/${data[i].id}/images`,
-      theMovieDBApiOptions
-    );
-    res.push({
-      ...data[i],
-      images: images.data,
-    });
-  }
-  return res;
+  return response.data.results.slice(0, 9);
+};
+
+export const fatchNowPlayingMoviesImages = async (
+  data: nowPlyingMoviesProps[],
+  index: number
+) => {
+  const id = data[index].id || data[0].id;
+  const response = await axios.get<imagesProps>(
+    `https://api.themoviedb.org/3/movie/${id}/images`,
+    theMovieDBApiOptions
+  );
+  return response.data;
 };
