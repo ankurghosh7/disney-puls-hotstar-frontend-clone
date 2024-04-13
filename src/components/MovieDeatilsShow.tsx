@@ -1,5 +1,8 @@
 import { convertMinutesToHoursAndMinutes } from "@/lib/utils";
-import type { movieDetailsProps, movieImagesProps } from "../api/getMovieData";
+import type {
+  movieDetailsProps,
+  movieImagesProps,
+} from "../helpers/getMovieData";
 function MovieDeatilsShow({
   movieImages,
   movieData,

@@ -81,6 +81,105 @@
     min-width: 0;
   }
   .logo_font {
-    font-family: 'Gilroy', sans-serif;
+    font-family: "Gilroy", sans-serif;
+  }
+}
+
+@layer components {
+  .remover_scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .remover_scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .remover_scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .btn {
+    @apply px-4 py-2 rounded-md shadow-md;
+  }
+  .btn-primary {
+    @apply bg-primary text-primary-foreground;
+  }
+  .btn-secondary {
+    @apply bg-secondary text-secondary-foreground;
+  }
+  .btn-accent {
+    @apply bg-accent text-accent-foreground;
+  }
+  .btn-destructive {
+    @apply bg-destructive text-destructive-foreground;
+  }
+  .btn-muted {
+    @apply bg-muted text-muted-foreground;
+  }
+  .btn-outline {
+    @apply border border-primary text-primary;
+  }
+  .btn-outline-primary {
+    @apply border-primary text-primary;
+  }
+  .btn-outline-secondary {
+    @apply border-secondary text-secondary;
+  }
+  .btn-outline-accent {
+    @apply border-accent text-accent;
+  }
+  .btn-outline-destructive {
+    @apply border-destructive text-destructive;
+  }
+  .btn-outline-muted {
+    @apply border-muted text-muted;
+  }
+  .btn-link {
+    @apply text-primary underline;
+  }
+  .btn-link-primary {
+    @apply text-primary underline;
+  }
+  .btn-link-secondary {
+    @apply text-secondary underline;
+  }
+  .btn-link-accent {
+    @apply text-accent underline;
+  }
+  .btn-link-destructive {
+    @apply text-destructive underline;
+  }
+  .btn-link-muted {
+    @apply text-muted underline;
+  }
+  .btn-sm {
+    @apply px-2 py-1 text-sm;
+  }
+  .btn-md {
+    @apply px-3 py-2 text-md;
+  }
+  .btn-lg {
+    @apply px-5 py-3 text-lg;
+  }
+  .btn-xl {
+    @apply px-6 py-4 text-xl;
+  }
+  .btn-block {
+    display: block;
+    width: 100%;
+  }
+  .btn-icon {
+    @apply flex items-center justify-center;
+  }
+  .btn-icon-left {
+    @apply flex items-center justify-center;
+  }
+  .btn-icon-right {
+    @apply flex items-center justify-center;
+  }
+  .btn-icon-only {
+    @apply flex items-center justify-center;
+  }
+  .btn-icon-only .icon {
+    @apply mr-0;
   }
 }

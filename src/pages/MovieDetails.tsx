@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import MovieDeatilsShow from "@/components/MovieDeatilsShow";
 import MovieVideo from "@/components/MovieVideo";
 import { useQuery } from "@tanstack/react-query";
-import { getMovieDetails, movieImagesWithVideos } from "@/api/getMovieData";
+import { getMovieDetails, movieImagesWithVideos } from "@/helpers/getMovieData";
 import { useEffect } from "react";
 
 function MovieDetails() {
