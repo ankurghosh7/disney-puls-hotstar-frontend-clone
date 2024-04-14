@@ -3,6 +3,7 @@ import { Button } from "./ui/button";
 import { HiMenuAlt2 } from "react-icons/hi";
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetHeader,
   SheetTitle,
@@ -10,6 +11,7 @@ import {
 } from "@/components/ui/sheet";
 import { useMediaQuery } from "usehooks-ts";
 import logo from "../../public/watcherhub_logo.svg";
+import SearchBox from "./SearchBox";
 function NabBar() {
   const navItems = [
     { name: "Home", path: "/" },
@@ -28,25 +30,28 @@ function NabBar() {
         </div>
       </Link>
       {isTablet ? (
-        <ul
-          className={` bg-transparent flex  space-x-8 justify-center items-center `}
-        >
-          {navItems.map((item) => (
-            <li key={item.name}>
-              <NavLink to={item.path}>
-                {({ isActive }) => (
-                  <span
-                    className={
-                      isActive ? "font-bold text-white" : "text-slate-400"
-                    }
-                  >
-                    {item.name}
-                  </span>
-                )}
-              </NavLink>
-            </li>
-          ))}
-        </ul>
+        <>
+          <ul
+            className={` bg-transparent flex  space-x-8 justify-center items-center `}
+          >
+            {navItems.map((item) => (
+              <li key={item.name}>
+                <NavLink to={item.path}>
+                  {({ isActive }) => (
+                    <span
+                      className={
+                        isActive ? "font-bold text-white" : "text-slate-400"
+                      }
+                    >
+                      {item.name}
+                    </span>
+                  )}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+          <SearchBox />
+        </>
       ) : (
         <Sheet>
           <SheetTrigger asChild>
@@ -58,22 +63,27 @@ function NabBar() {
             <SheetHeader>
               <SheetTitle>Menu</SheetTitle>
             </SheetHeader>
+
+            <SearchBox />
+
             <ul className="space-y-4 py-10 w-full">
               {navItems.map((item) => (
                 <li key={item.name} className="w-full ">
-                  <NavLink to={item.path} className={"w-full inline-block"}>
-                    {({ isActive }) => (
-                      <span
-                        className={`${
-                          isActive
-                            ? "font-bold text-black bg-gray-50 "
-                            : "text-slate-400 bg-slate-50/10"
-                        } w-full inline-block p-2 rounded-lg text-center`}
-                      >
-                        {item.name}
-                      </span>
-                    )}
-                  </NavLink>
+                  <SheetClose asChild>
+                    <NavLink to={item.path} className={"w-full inline-block"}>
+                      {({ isActive }) => (
+                        <span
+                          className={`${
+                            isActive
+                              ? "font-bold text-black bg-gray-50 "
+                              : "text-slate-400 bg-slate-50/10"
+                          } w-full inline-block p-2 rounded-lg text-center`}
+                        >
+                          {item.name}
+                        </span>
+                      )}
+                    </NavLink>
+                  </SheetClose>
                 </li>
               ))}
             </ul>
