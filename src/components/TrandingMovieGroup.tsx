@@ -19,7 +19,7 @@ function TrandingMovieGroup({ data }: { data: trasndingMoviesProps }) {
       >
         <CarouselContent className="">
           {data.results.map((movie, index) => (
-            <CarouselItem key={index} className="basis-1/2 lg:basis-1/6">
+            <CarouselItem key={index} className="basis-1/2 sm:basis-1/3 lg:basis-1/6">
               <Link to={`/movies/${movie.id}`} key={index}>
                 <MovieCard
                   imageUrl={`https://media.themoviedb.org/t/p/w220_and_h330_face${movie.poster_path}`}
