@@ -10,19 +10,27 @@ function MovieDeatilsShow({
   movieImages: movieImagesProps;
   movieData: movieDetailsProps;
 }) {
-  // const poster = movieImages.posters[0].file_path;
-  // const runtime = Math.floor(movieData?.runtime / 60);
+  console.log(movieImages);
+  const moviePoster = movieImages.posters.find(
+    (poster) =>
+      poster.iso_639_1 === "en" ||
+      (poster.iso_639_1 === "hi" && poster.file_path !== null)
+  )?.file_path;
+
+  const movieBackdrop = movieImages.backdrops.find(
+    (backdrop) => backdrop.file_path !== null
+  )?.file_path;
   return (
     <div className={`h-[calc(100vh-80px)]  relative w-full `}>
       <img
-        src={`https://media.themoviedb.org/t/p/w1920_and_h800_face${movieImages.backdrops[0].file_path}`}
+        src={`https://media.themoviedb.org/t/p/w1920_and_h800_face${movieBackdrop}`}
         alt=""
         className="absolute w-full h-full opacity-30 object-cover -z-10 hidden md:block"
       />
       <div className="w-full h-full grid lg:grid-cols-2  z-10">
         <div className="w-full h-1/2 md:h-full flex justify-center items-center overflow-hidden relative">
           <img
-            src={`https://media.themoviedb.org/t/p/w600_and_h900_face${movieImages.posters[0].file_path}`}
+            src={`https://media.themoviedb.org/t/p/w600_and_h900_face${moviePoster}`}
             alt=""
             className="w-full h-full lg:w-2/4 lg:h-4/5 object-cover opacity-100 md:rounded-xl"
           />
@@ -39,7 +47,7 @@ function MovieDeatilsShow({
               </div>
               <div className="mr-5">
                 <p className="font-bold">Rating</p>
-                <p>{`${movieData.vote_average}`}</p>
+                <p>{`${Math.round(Number(movieData.vote_average))}`} /10</p>
               </div>
               <div className="mr-5">
                 <p className="font-bold">Runtime</p>
