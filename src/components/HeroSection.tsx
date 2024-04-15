@@ -2,7 +2,6 @@ import { imagesProps, nowPlyingMoviesProps } from "@/helpers/HeroFeature";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "./ui/button";
 import { movies } from "@/constants/GenreId";
-import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FiPlus } from "react-icons/fi";
@@ -11,6 +10,7 @@ import axios from "axios";
 import { theMovieDBApiOptions } from "@/lib/constants";
 import { useMediaQuery } from "usehooks-ts";
 import MobileNowPlayingCrousel from "./MobileNowPlayingCrousel";
+import FeaturedMoviesSwiperCon from "./FeaturedMoviesSwiperCon";
 
 const HeroSection = ({ data }: { data: nowPlyingMoviesProps[] }) => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
@@ -30,7 +30,6 @@ const HeroSection = ({ data }: { data: nowPlyingMoviesProps[] }) => {
     enabled: data.length > 0,
     staleTime: 60 * 60 * 1000,
   });
-  console.log(images);
   let trailerId: number = data[activeIndex].id;
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -46,7 +45,7 @@ const HeroSection = ({ data }: { data: nowPlyingMoviesProps[] }) => {
       {isMobile ? (
         <MobileNowPlayingCrousel />
       ) : (
-        <>
+        <div>
           <div
             className="absolute sm:h-[100vh] sm:w-full md:bg-slate-400 top-0 left-0 right-0 bg-cover bg-current bg-top bg-no-repeat"
             style={{
@@ -107,39 +106,14 @@ const HeroSection = ({ data }: { data: nowPlyingMoviesProps[] }) => {
                 </Button>
               </div>
             </div>
-            <div className="">
-              <div className="relative z-10 bottom-0 h-16 flex max-w-[30vw] overflow-x-scroll remover_scrollbar px-5">
-                <div className="flex space-x-2 items-end">
-                  {data.map((movie, index) => (
-                    <div
-                      key={index}
-                      className={cn(
-                        "w-20 h-12 bg-cover bg-top bg-no-repeat rounded-md overflow-hidden cursor-pointer opacity-60 border-white hover:opacity-100 hover:scale-110 hover:-translate-y-2 transition-all duration-300 ease-in-out",
-                        {
-                          "opacity-100 border ":
-                            data.indexOf(movie) === activeIndex,
-                          "hover:scale-100 hover:-translate-y-0":
-                            data.indexOf(movie) === activeIndex,
-                        }
-                      )}
-                      onClick={() => {
-                        setActiveIndex(data.indexOf(movie));
-                        setShowTrailer(false);
-                      }}
-                    >
-                      <div>
-                        <img
-                          src={`https://media.themoviedb.org/t/p/w92${movie.poster_path}`}
-                          alt=""
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
+            <FeaturedMoviesSwiperCon
+              data={data}
+              activeIndex={activeIndex}
+              setActiveIndex={setActiveIndex}
+              setShowTrailer={setShowTrailer}
+            />
           </div>
-        </>
+        </div>
       )}
     </>
   );

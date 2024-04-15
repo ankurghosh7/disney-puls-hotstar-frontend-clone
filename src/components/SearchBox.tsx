@@ -25,7 +25,7 @@ function SearchBox({
   };
   return (
     <div className={cn("w-full", className)}>
-      <div className="flex h-11 w-full rounded-xl border border-input bg-transparent shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-within:outline-none focus-within:ring-1 focus-within:ring-ring disabled:cursor-not-allowed disabled:opacity-50 overflow-hidden">
+      <div className="flex h-11 w-full rounded-xl border border-input bg-white/30 backdrop-blur-md	 shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-within:outline-none focus-within:ring-1 focus-within:ring-ring disabled:cursor-not-allowed disabled:opacity-50 overflow-hidden">
         <input
           type="text"
           className="w-0 flex-1 border-none focus:outline-none bg-transparent px-3 py-1 text-base"
