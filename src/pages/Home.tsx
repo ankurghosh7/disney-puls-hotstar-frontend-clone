@@ -41,7 +41,7 @@ function Home() {
     document.title = "WatcherHub Home";
   }, []);
   return (
-    <main className="min-h-screen w-full px-5 md:px-10 xl:px-20 space-y-8 select-none">
+    <main className=" space-y-8 select-none">
       <Suspense fallback={<div>loding...</div>}>
         {fatureMoviesLofing ? (
           <MovieCardLoder />

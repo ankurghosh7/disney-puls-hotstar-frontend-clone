@@ -6,13 +6,15 @@ import { Toaster } from "./components/ui/toaster";
 
 function App() {
   return (
-    <>
+    <main className="flex">
       <Suspense fallback={<Loding />}>
         <NabBar />
-        <Outlet />
+        <div className="ml-28 w-[calc(100vw-112px)] min-h-screen">
+          <Outlet />
+        </div>
         <Toaster />
       </Suspense>
-    </>
+    </main>
   );
 }
 

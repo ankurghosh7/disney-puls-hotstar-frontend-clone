@@ -10,87 +10,95 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { useMediaQuery } from "usehooks-ts";
-import logo from "../../public/watcherhub_logo.svg";
-import SearchBox from "./SearchBox";
+import logo from "../../public/logo-d-plus.svg";
+import { RiHomeSmile2Line, RiHomeSmile2Fill } from "react-icons/ri";
+import { CiSearch } from "react-icons/ci";
+import { PiUserCircle, PiUserCircleFill } from "react-icons/pi";
+import { LuClapperboard } from "react-icons/lu";
+import { MdOutlineSportsBaseball, MdSportsBaseball } from "react-icons/md";
+import {
+  BiCategoryAlt,
+  BiTv,
+  BiSolidTv,
+  BiSolidCategoryAlt,
+} from "react-icons/bi";
+import { useState } from "react";
+
 function NabBar() {
   const navItems = [
-    { name: "Home", path: "/" },
-    { name: "Contact", path: "/contact" },
+    {
+      name: "My Space",
+      path: "/my-page",
+      outlineIcon: <PiUserCircle />,
+      solidIcon: <PiUserCircleFill />,
+    },
+    { name: "Search", path: "/search", outlineIcon: <CiSearch /> },
+    {
+      name: "Home",
+      path: "/",
+      outlineIcon: <RiHomeSmile2Line />,
+      solidIcon: <RiHomeSmile2Fill />,
+    },
+    {
+      name: "TV",
+      path: "/shows",
+      outlineIcon: <BiTv />,
+      solidIcon: <BiSolidTv />,
+    },
+    { name: "Movies", path: "/movies", outlineIcon: <LuClapperboard /> },
+    {
+      name: "Sports",
+      path: "/sports",
+      outlineIcon: <MdOutlineSportsBaseball />,
+      solidIcon: <MdSportsBaseball />,
+    },
+    {
+      name: "Categories",
+      path: "/categories",
+      outlineIcon: <BiCategoryAlt />,
+      solidIcon: <BiSolidCategoryAlt />,
+    },
   ];
-
+  const [navBarOpen, setNavBarOpen] = useState(false);
   const isTablet = useMediaQuery("(min-width: 640px)");
   return (
-    <header className="flex justify-between sm:grid sm:justify-normal grid-cols-3 lg:px-10 xl:px-20 p-5 relative z-40 select-none">
-      <Link to={"/"}>
-        <div className="flex items-center space-x-2">
-          <img src={logo} alt="logo" className="w-8 h-8 md:w-10 md:h-10" />
-          <h1 className="text-xl md:text-2xl col-span-2 md:col-span-1 logo_font font-extrabold">
-            watcherhub
-          </h1>
+    <aside className="max-h-screen h-screen w-24 fixed z-20">
+      {/* <div className="w-full h-full  -z-10"></div> */}
+      <div className="py-8 flex justify-center items-center flex-col z-30 space-y-4">
+        <Link to={"/"}>
+          <img
+            src={logo}
+            alt="logo"
+            className="w-8 h-8 md:w-14 max-w-full md:h-auto "
+          />
+        </Link>
+        <div className="text-sm bg-yellow-600/20 px-2 rounded-full text-yellow-400">
+          <span className="text-xs">Subscribe</span>
         </div>
-      </Link>
-      {isTablet ? (
-        <>
-          <ul
-            className={` bg-transparent flex  space-x-8 justify-center items-center `}
-          >
+      </div>
+      <div className="flex flex-col h-full w-full hover:w-fit py-8  select-none group z-10 absolute top-0 hover:ml-7">
+        <nav className={`flex-1 w-full flex justify-center items-center `}>
+          <ul className=" space-y-4 w-full group/nav ">
             {navItems.map((item) => (
-              <li key={item.name}>
-                <NavLink to={item.path}>
-                  {({ isActive }) => (
-                    <span
-                      className={
-                        isActive ? "font-bold text-white" : "text-slate-400"
-                      }
-                    >
-                      {item.name}
-                    </span>
-                  )}
+              <li
+                key={item.name}
+                className=""
+              >
+                <NavLink
+                  to={item.path}
+                  className="flex  items-center justify-center group-hover/nav:justify-start space-x-2 text-gray-300 hover:scale-110  hover:translate-x-2 transition-all duration-300 ease-in-out"
+                >
+                  <div className="text-2xl p-2">{item.outlineIcon}</div>
+                  <span className="text-xl hidden group-hover/nav:block delay-75 -translate-x-5 group-hover/nav:translate-x-0 transition-all duration-300 ease-in-out">
+                    {item.name}
+                  </span>
                 </NavLink>
               </li>
             ))}
           </ul>
-          <SearchBox />
-        </>
-      ) : (
-        <Sheet>
-          <SheetTrigger asChild>
-            <Button variant="ghost">
-              <HiMenuAlt2 className="text-2xl" />
-            </Button>
-          </SheetTrigger>
-          <SheetContent>
-            <SheetHeader>
-              <SheetTitle>Menu</SheetTitle>
-            </SheetHeader>
-
-            <SearchBox />
-
-            <ul className="space-y-4 py-10 w-full">
-              {navItems.map((item) => (
-                <li key={item.name} className="w-full ">
-                  <SheetClose asChild>
-                    <NavLink to={item.path} className={"w-full inline-block"}>
-                      {({ isActive }) => (
-                        <span
-                          className={`${
-                            isActive
-                              ? "font-bold text-black bg-gray-50 "
-                              : "text-slate-400 bg-slate-50/10"
-                          } w-full inline-block p-2 rounded-lg text-center`}
-                        >
-                          {item.name}
-                        </span>
-                      )}
-                    </NavLink>
-                  </SheetClose>
-                </li>
-              ))}
-            </ul>
-          </SheetContent>
-        </Sheet>
-      )}
-    </header>
+        </nav>
+      </div>
+    </aside>
   );
 }
 

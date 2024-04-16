@@ -25,15 +25,19 @@ export const BrowserRouter = createBrowserRouter([
         element: <div>tv-shows</div>,
       },
       {
-        path: "/contact",
+        path: "/my-page",
         element: <Contact />,
       },
       {
-        path: "/movies/:id",
+        path: "/movies/",
         element: <MovieDetails />,
       },
       {
-        path: "/search/:search",
+        path: "/explore",
+        element: <Contact />,
+      },
+      {
+        path: "/explore/:q",
         element: <Search />,
       },
     ],
