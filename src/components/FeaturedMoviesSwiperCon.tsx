@@ -1,4 +1,4 @@
-import { nowPlyingMoviesProps } from "@/helpers/HeroFeature";
+import { nowPlyingMoviesProps } from "@/helpers/trandingDiscover";
 import { cn } from "@/lib/utils";
 
 const FeaturedMoviesSwiperCon = ({

@@ -15,6 +15,7 @@ import {
 import { useState } from "react";
 import { IconType } from "react-icons/lib";
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 interface navItemsProps {
   name: string;
   path: string;
@@ -76,9 +77,20 @@ function NabBar() {
     },
   ];
   const [navBarOpen, setNavBarOpen] = useState(false);
-  const hoverBtn = () => {};
+  const variants = {
+    closed: {
+      opacity: 0,
+      x: "-30%",
+      transitionEnd: { display: "none" },
+    },
+    open: {
+      opacity: 1,
+      x: 0,
+      display: "block",
+    },
+  };
   return (
-    <aside className="fixed w-24 h-screen">
+    <aside className="fixed w-24 h-screen z-30">
       <div className="fixed z-30 w-24 h-auto">
         <div className="py-8">
           <Link to="/">
@@ -86,7 +98,7 @@ function NabBar() {
           </Link>
         </div>
       </div>
-      <nav className="fixed z-20 top-0 bottom-0 min-w-24 h-screen backdrop-blur-sm">
+      <div className="fixed z-20 top-0 bottom-0 min-w-24 h-screen backdrop-blur-sm flex items-center">
         <div
           className={cn(
             "invisible hidden  absolute top-0 bottom-0 h-screen w-screen opacity-0 bg-gradient-to-r from-zinc-950 via-zinc-950/50 via-50% transition-all duration-700",
@@ -95,22 +107,26 @@ function NabBar() {
             }
           )}
         ></div>
-        <div className="h-full py-10 flex flex-col items-center justify-center absolute max-w-64">
+        <nav className="h-full flex items-center absolute max-w-64">
           <div
-            className={cn("flex flex-col w-full space-y-4 group/wrapper", {})}
+            className={cn("flex flex-col space-y-4 group/wrapper")}
             onMouseEnter={() => setNavBarOpen(true)}
             onMouseLeave={() => setNavBarOpen(false)}
           >
             {navItems.map((item, index) => (
-              <Link to={item.path} key={index} className={`w-full mx-5`}>
-                <button
-                  className={cn(
-                    "flex items-center w-full  group/item hover:scale-105 hover:translate-x-2 transition-all duration-300 ease-linear",
-                    {
-                      "drop-shadow-[0_35px_35px_rgba(225,225,225,1)]":
-                        item.isActive,
-                    }
-                  )}
+              <Link
+                to={item.path}
+                key={index}
+                className={`group/item mx-5 hover:scale-110 hover:translate-x-2 transition-all duration-200 ease-linear`}
+              >
+                <motion.button
+                  className={cn("flex items-center   ", {
+                    "drop-shadow-[0_3px_20px_rgba(225,225,225,1)]":
+                      item.isActive,
+                  })}
+                  whileTap={{
+                    scale: 0.9,
+                  }}
                 >
                   <div className="w-12 h-12 flex items-center justify-center ">
                     {item.isActive ? (
@@ -119,24 +135,26 @@ function NabBar() {
                       <item.outlineIcon className="text-2xl text-white" />
                     )}
                   </div>
-                  <p
+                  <motion.span
+                    variants={variants}
+                    initial="closed"
+                    animate={navBarOpen ? "open" : "closed"}
+                    transition={{ duration: 0.3 }}
                     className={cn(
-                      "invisible opacity-0 group-hover/item:text-white -translate-x-5  transition-all delay-75 duration-300 text-lg font-semibold text-white",
+                      "text-xl text-gray-400 font-semibold group-hover/item:text-white",
                       {
                         "text-white": item.isActive,
-                        "text-gray-400": !item.isActive,
-                        "visible translate-x-0 opacity-100": navBarOpen,
                       }
                     )}
                   >
                     {item.name}
-                  </p>
-                </button>
+                  </motion.span>
+                </motion.button>
               </Link>
             ))}
           </div>
-        </div>
-      </nav>
+        </nav>
+      </div>
     </aside>
   );
 }

@@ -1,10 +1,7 @@
 import { theMovieDBApiOptions } from "@/lib/constants";
+import { getCurrentDate } from "@/lib/CurrentDate";
 import axios from "axios";
 export interface nowPlyingMoviesGetProps {
-  dates: {
-    maximum: string;
-    minimum: string;
-  };
   page: number;
   results: {
     adult: boolean;
@@ -72,9 +69,10 @@ export interface nowPlyingMoviesProps {
   vote_count: number;
   // images: imagesProps;
 }
-export const nowPlayingMovies = async (): Promise<nowPlyingMoviesProps[]> => {
+export const trendingDiscoverMovies = async (): Promise<nowPlyingMoviesProps[]> => {
+  const date = getCurrentDate();
   const response = await axios.get<nowPlyingMoviesGetProps>(
-    "https://api.themoviedb.org/3/movie/now_playing?language=en-IN&page=1&region=IN&page=1",
+    `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&release_date.gte=${date}&sort_by=popularity.desc&vote_average.gte=1&with_watch_providers=122`,
     theMovieDBApiOptions
   );
   console.log(response);

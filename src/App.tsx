@@ -10,7 +10,7 @@ function App() {
       <Suspense fallback={<Loding />}>
         <NabBar />
         <div className="min-h-screen ml-28">
-          <Outlet />
+          <Outlet />{" "}
         </div>
         <Toaster />
       </Suspense>
