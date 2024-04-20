@@ -1,12 +1,17 @@
-import { imagesProps, nowPlyingMoviesProps } from "@/helpers/trandingDiscover";
+import {
+  fatchNowPlayingMoviesImages,
+  trendingDiscoverMoviesResultProps,
+} from "@/helpers/trandingDiscover";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import axios from "axios";
-import { theMovieDBApiOptions } from "@/lib/constants";
 import { useMediaQuery } from "usehooks-ts";
 import HeadContainer from "./ui/head-container";
 
-const HeroSection = ({ data }: { data: nowPlyingMoviesProps[] }) => {
+const HeroSection = ({
+  data,
+}: {
+  data: trendingDiscoverMoviesResultProps[];
+}) => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [scrollY, setScrollY] = useState(0);
   const [divOpacity, setDivOpacity] = useState(1);
@@ -14,11 +19,7 @@ const HeroSection = ({ data }: { data: nowPlyingMoviesProps[] }) => {
     queryKey: ["fatchNowPlayingMoviesImages", activeIndex],
     queryFn: async () => {
       const id = data[activeIndex].id;
-      const response = await axios.get<imagesProps>(
-        `https://api.themoviedb.org/3/movie/${id}/images`,
-        theMovieDBApiOptions
-      );
-      return response.data;
+      return await fatchNowPlayingMoviesImages(id);
     },
     enabled: data.length > 0,
     staleTime: 60 * 60 * 1000,

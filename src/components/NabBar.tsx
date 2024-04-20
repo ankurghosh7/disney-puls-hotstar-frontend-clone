@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useMediaQuery } from "usehooks-ts";
 import logo from "../../public/logo-d-plus.svg";
 import { RiHomeSmile2Line, RiHomeSmile2Fill } from "react-icons/ri";
@@ -21,59 +21,59 @@ interface navItemsProps {
   path: string;
   outlineIcon: IconType;
   solidIcon: IconType;
-  isActive: boolean;
+  isHovered: boolean;
 }
 function NabBar() {
-  let location = useLocation();
+  const [hoverIndex, setHoverIndex] = useState<number | null>(null);
   const navItems: navItemsProps[] = [
     {
       name: "My Space",
       path: "/my-page",
       outlineIcon: PiUserCircle,
       solidIcon: PiUserCircleFill,
-      isActive: location.pathname === "/my-page" ? true : false,
+      isHovered: false,
     },
     {
       name: "Search",
       path: "/search",
       outlineIcon: CiSearch,
       solidIcon: CiSearch,
-      isActive: location.pathname === "/search" ? true : false,
+      isHovered: false,
     },
     {
       name: "Home",
       path: "/",
       outlineIcon: RiHomeSmile2Line,
       solidIcon: RiHomeSmile2Fill,
-      isActive: location.pathname === "/" ? true : false,
+      isHovered: false,
     },
     {
       name: "TV",
       path: "/shows",
       outlineIcon: BiTv,
       solidIcon: BiSolidTv,
-      isActive: location.pathname === "/shows" ? true : false,
+      isHovered: false,
     },
     {
       name: "Movies",
       path: "/movies",
       outlineIcon: LuClapperboard,
       solidIcon: LuClapperboard,
-      isActive: location.pathname === "/movies" ? true : false,
+      isHovered: false,
     },
     {
       name: "Sports",
       path: "/sports",
       outlineIcon: MdOutlineSportsBaseball,
       solidIcon: MdSportsBaseball,
-      isActive: location.pathname === "/sports" ? true : false,
+      isHovered: false,
     },
     {
       name: "Categories",
       path: "/categories",
       outlineIcon: BiCategoryAlt,
       solidIcon: BiSolidCategoryAlt,
-      isActive: location.pathname === "/categories" ? true : false,
+      isHovered: false,
     },
   ];
   const [navBarOpen, setNavBarOpen] = useState(false);
@@ -89,6 +89,7 @@ function NabBar() {
       display: "block",
     },
   };
+
   return (
     <aside className="fixed w-24 h-screen z-30">
       <div className="fixed z-30 w-24 h-auto">
@@ -111,46 +112,58 @@ function NabBar() {
           <div
             className={cn("flex flex-col space-y-4 group/wrapper")}
             onMouseEnter={() => setNavBarOpen(true)}
-            onMouseLeave={() => setNavBarOpen(false)}
+            // onMouseLeave={() => setNavBarOpen(false)}
           >
             {navItems.map((item, index) => (
-              <Link
+              <NavLink
                 to={item.path}
                 key={index}
-                className={`group/item mx-5 hover:scale-110 hover:translate-x-2 transition-all duration-200 ease-linear`}
+                data-hover={false}
+                className={cn(
+                  "group/item mx-5 hover:scale-110 hover:translate-x-2 transition-all duration-200 ease-linear "
+                )}
+                onMouseEnter={() => setHoverIndex(index)}
+                onMouseLeave={() => setHoverIndex(null)}
               >
-                <motion.button
-                  className={cn("flex items-center   ", {
-                    "drop-shadow-[0_3px_20px_rgba(225,225,225,1)]":
-                      item.isActive,
-                  })}
-                  whileTap={{
-                    scale: 0.9,
-                  }}
-                >
-                  <div className="w-12 h-12 flex items-center justify-center ">
-                    {item.isActive ? (
-                      <item.solidIcon className="text-2xl text-white " />
-                    ) : (
-                      <item.outlineIcon className="text-2xl text-white" />
-                    )}
-                  </div>
-                  <motion.span
-                    variants={variants}
-                    initial="closed"
-                    animate={navBarOpen ? "open" : "closed"}
-                    transition={{ duration: 0.3 }}
-                    className={cn(
-                      "text-xl text-gray-400 font-semibold group-hover/item:text-white",
-                      {
-                        "text-white": item.isActive,
-                      }
-                    )}
+                {({ isActive }) => (
+                  <motion.button
+                    className={cn("flex items-center scale-100", {
+                      "drop-shadow-[0_3px_20px_rgba(225,225,225,1)]": isActive,
+                    })}
+                    whileTap={{
+                      scale: 0.9,
+                    }}
                   >
-                    {item.name}
-                  </motion.span>
-                </motion.button>
-              </Link>
+                    <div
+                      className={cn(
+                        "w-12 h-12 flex items-center justify-center"
+                      )}
+                    >
+                      {isActive ? (
+                        <item.solidIcon className="text-2xl text-white" />
+                      ) : navItems[hoverIndex]?.name === item.name ? (
+                        <item.solidIcon className="text-2xl text-white" />
+                      ) : (
+                        <item.outlineIcon className="text-2xl text-gray-400" />
+                      )}
+                    </div>
+                    <motion.span
+                      variants={variants}
+                      initial="closed"
+                      animate={navBarOpen ? "open" : "closed"}
+                      transition={{ duration: 0.3 }}
+                      className={cn(
+                        "text-xl text-gray-400 font-semibold group-hover/item:text-white",
+                        {
+                          "text-white": isActive,
+                        }
+                      )}
+                    >
+                      {item.name}
+                    </motion.span>
+                  </motion.button>
+                )}
+              </NavLink>
             ))}
           </div>
         </nav>

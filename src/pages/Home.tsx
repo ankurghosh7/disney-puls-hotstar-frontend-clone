@@ -1,10 +1,5 @@
-import { Button } from "@/components/ui/button";
 import { Suspense, useEffect } from "react";
-import TrandingMovieGroup from "@/components/TrandingMovieGroup";
-import { Link } from "react-router-dom";
-import TrandingSeriesGroup from "@/components/TrandingSeriesGroup";
 import HeroSection from "@/components/HeroSection";
-import { trandingMovies, trasndingSeries } from "@/helpers/getMovieData";
 import { useQuery } from "@tanstack/react-query";
 import { getCurrentDate } from "@/lib/CurrentDate";
 import { MovieCardLoder } from "@/components/MovieCard";

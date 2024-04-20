@@ -1,24 +1,9 @@
 import { theMovieDBApiOptions } from "@/lib/constants";
 import { getCurrentDate } from "@/lib/CurrentDate";
 import axios from "axios";
-export interface nowPlyingMoviesGetProps {
+export interface trendingDiscoverMoviesResponseProps {
   page: number;
-  results: {
-    adult: boolean;
-    backdrop_path: string;
-    genre_ids: number[];
-    id: number;
-    original_language: string;
-    original_title: string;
-    overview: string;
-    popularity: number;
-    poster_path: string;
-    release_date: string;
-    title: string;
-    video: boolean;
-    vote_average: number;
-    vote_count: number;
-  }[];
+  results: trendingDiscoverMoviesResultProps[];
   total_pages: number;
   total_results: number;
 }
@@ -52,7 +37,7 @@ export interface imagesProps {
     width: number;
   }[];
 }
-export interface nowPlyingMoviesProps {
+export interface trendingDiscoverMoviesResultProps {
   adult: boolean;
   backdrop_path: string;
   genre_ids: number[];
@@ -67,11 +52,10 @@ export interface nowPlyingMoviesProps {
   video: boolean;
   vote_average: number;
   vote_count: number;
-  // images: imagesProps;
 }
-export const trendingDiscoverMovies = async (): Promise<nowPlyingMoviesProps[]> => {
+export const trendingDiscoverMovies = async () => {
   const date = getCurrentDate();
-  const response = await axios.get<nowPlyingMoviesGetProps>(
+  const response = await axios.get<trendingDiscoverMoviesResponseProps>(
     `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&release_date.gte=${date}&sort_by=popularity.desc&vote_average.gte=1&with_watch_providers=122`,
     theMovieDBApiOptions
   );
@@ -79,11 +63,7 @@ export const trendingDiscoverMovies = async (): Promise<nowPlyingMoviesProps[]> 
   return response.data.results.slice(0, 9);
 };
 
-export const fatchNowPlayingMoviesImages = async (
-  data: nowPlyingMoviesProps[],
-  index: number
-) => {
-  const id = data[index].id || data[0].id;
+export const fatchNowPlayingMoviesImages = async (id: number) => {
   const response = await axios.get<imagesProps>(
     `https://api.themoviedb.org/3/movie/${id}/images`,
     theMovieDBApiOptions
