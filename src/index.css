@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    --background: 222.2 84% 4.9%;
+    --background: 240, 10%, 4%;
     --foreground: 210 40% 98%;
 
     --card: 222.2 84% 4.9%;
@@ -97,72 +97,10 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
-  .btn {
-    @apply px-4 py-2 rounded-md shadow-md;
+  .cardScaleEffect {
+    animation: kdUbkV2MkpUdd4wNQxnlN 0.2s ease-in forwards;
   }
-  .btn-primary {
-    @apply bg-primary text-primary-foreground;
-  }
-  .btn-secondary {
-    @apply bg-secondary text-secondary-foreground;
-  }
-  .btn-accent {
-    @apply bg-accent text-accent-foreground;
-  }
-  .btn-destructive {
-    @apply bg-destructive text-destructive-foreground;
-  }
-  .btn-muted {
-    @apply bg-muted text-muted-foreground;
-  }
-  .btn-outline {
-    @apply border border-primary text-primary;
-  }
-  .btn-outline-primary {
-    @apply border-primary text-primary;
-  }
-  .btn-outline-secondary {
-    @apply border-secondary text-secondary;
-  }
-  .btn-outline-accent {
-    @apply border-accent text-accent;
-  }
-  .btn-outline-destructive {
-    @apply border-destructive text-destructive;
-  }
-  .btn-outline-muted {
-    @apply border-muted text-muted;
-  }
-  .btn-link {
-    @apply text-primary underline;
-  }
-  .btn-link-primary {
-    @apply text-primary underline;
-  }
-  .btn-link-secondary {
-    @apply text-secondary underline;
-  }
-  .btn-link-accent {
-    @apply text-accent underline;
-  }
-  .btn-link-destructive {
-    @apply text-destructive underline;
-  }
-  .btn-link-muted {
-    @apply text-muted underline;
-  }
-  .btn-sm {
-    @apply px-2 py-1 text-sm;
-  }
-  .btn-md {
-    @apply px-3 py-2 text-md;
-  }
-  .btn-lg {
-    @apply px-5 py-3 text-lg;
-  }
-  .btn-xl {
-    @apply px-6 py-4 text-xl;
-  }
+
   .btn-block {
     display: block;
     width: 100%;
@@ -181,5 +119,14 @@
   }
   .btn-icon-only .icon {
     @apply mr-0;
+  }
+}
+@keyframes kdUbkV2MkpUdd4wNQxnlN {
+  0% {
+    transform: scale3d(0.5, 0.5, 1);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleX(1);
   }
 }

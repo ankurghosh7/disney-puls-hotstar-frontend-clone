@@ -1,96 +1,182 @@
 import { Link, NavLink } from "react-router-dom";
-import { Button } from "./ui/button";
-import { HiMenuAlt2 } from "react-icons/hi";
+// import { useMediaQuery } from "usehooks-ts";
+import logo from "../../public/logo-d-plus.svg";
+import { RiHomeSmile2Line, RiHomeSmile2Fill } from "react-icons/ri";
+import { CiSearch } from "react-icons/ci";
+import { PiUserCircle, PiUserCircleFill } from "react-icons/pi";
+import { LuClapperboard } from "react-icons/lu";
+import { MdOutlineSportsBaseball, MdSportsBaseball } from "react-icons/md";
 import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import { useMediaQuery } from "usehooks-ts";
-import logo from "../../public/watcherhub_logo.svg";
-import SearchBox from "./SearchBox";
+  BiCategoryAlt,
+  BiTv,
+  BiSolidTv,
+  BiSolidCategoryAlt,
+} from "react-icons/bi";
+import { useState } from "react";
+import { IconType } from "react-icons/lib";
+import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
+interface navItemsProps {
+  name: string;
+  path: string;
+  outlineIcon: IconType;
+  solidIcon: IconType;
+  isHovered: boolean;
+  id: number;
+}
 function NabBar() {
-  const navItems = [
-    { name: "Home", path: "/" },
-    { name: "Contact", path: "/contact" },
+  const [hoverIndex, setHoverIndex] = useState<number>(0);
+  const navItems: navItemsProps[] = [
+    {
+      name: "My Space",
+      path: "/my-page",
+      outlineIcon: PiUserCircle,
+      solidIcon: PiUserCircleFill,
+      isHovered: false,
+      id: 1,
+    },
+    {
+      name: "Search",
+      path: "/search",
+      outlineIcon: CiSearch,
+      solidIcon: CiSearch,
+      isHovered: false,
+      id: 2,
+    },
+    {
+      name: "Home",
+      path: "/",
+      outlineIcon: RiHomeSmile2Line,
+      solidIcon: RiHomeSmile2Fill,
+      isHovered: false,
+      id: 3,
+    },
+    {
+      name: "TV",
+      path: "/shows",
+      outlineIcon: BiTv,
+      solidIcon: BiSolidTv,
+      isHovered: false,
+      id: 4,
+    },
+    {
+      name: "Movies",
+      path: "/movies",
+      outlineIcon: LuClapperboard,
+      solidIcon: LuClapperboard,
+      isHovered: false,
+      id: 5,
+    },
+    {
+      name: "Sports",
+      path: "/sports",
+      outlineIcon: MdOutlineSportsBaseball,
+      solidIcon: MdSportsBaseball,
+      isHovered: false,
+      id: 6,
+    },
+    {
+      name: "Categories",
+      path: "/categories",
+      outlineIcon: BiCategoryAlt,
+      solidIcon: BiSolidCategoryAlt,
+      isHovered: false,
+      id: 7,
+    },
   ];
+  const [navBarOpen, setNavBarOpen] = useState(false);
+  const variants = {
+    closed: {
+      opacity: 0,
+      x: "-30%",
+      transitionEnd: { display: "none" },
+    },
+    open: {
+      opacity: 1,
+      x: 0,
+      display: "block",
+    },
+  };
 
-  const isTablet = useMediaQuery("(min-width: 640px)");
   return (
-    <header className="flex justify-between sm:grid sm:justify-normal grid-cols-3 lg:px-10 xl:px-20 p-5 relative z-40 select-none">
-      <Link to={"/"}>
-        <div className="flex items-center space-x-2">
-          <img src={logo} alt="logo" className="w-8 h-8 md:w-10 md:h-10" />
-          <h1 className="text-xl md:text-2xl col-span-2 md:col-span-1 logo_font font-extrabold">
-            watcherhub
-          </h1>
+    <aside className="fixed w-24 h-screen z-40">
+      <div className="fixed z-30 w-24 h-auto">
+        <div className="py-8">
+          <Link to="/">
+            <img src={logo} alt="logo" className="w-14 h-auto mx-auto" />
+          </Link>
         </div>
-      </Link>
-      {isTablet ? (
-        <>
-          <ul
-            className={` bg-transparent flex  space-x-8 justify-center items-center `}
+      </div>
+      <div className="fixed z-20 top-0 bottom-0 min-w-24 h-screen backdrop-blur-sm flex items-center">
+        <div
+          className={cn(
+            "invisible hidden  absolute top-0 bottom-0 h-screen w-screen opacity-0 bg-gradient-to-r from-zinc-950 via-zinc-950/50 via-50% transition-all duration-700",
+            {
+              "visible opacity-100 block": navBarOpen,
+            }
+          )}
+        ></div>
+        <nav className="h-full flex items-center absolute max-w-64">
+          <div
+            className={cn("flex flex-col space-y-4 group/wrapper")}
+            onMouseEnter={() => setNavBarOpen(true)}
+            onMouseLeave={() => setNavBarOpen(false)}
           >
-            {navItems.map((item) => (
-              <li key={item.name}>
-                <NavLink to={item.path}>
-                  {({ isActive }) => (
-                    <span
-                      className={
-                        isActive ? "font-bold text-white" : "text-slate-400"
-                      }
+            {navItems.map((item, index) => (
+              <NavLink
+                to={item.path}
+                key={index}
+                data-hover={false}
+                className={cn(
+                  "group/item mx-5 hover:scale-110 hover:translate-x-2 transition-all duration-200 ease-linear "
+                )}
+                onMouseEnter={() => setHoverIndex(index)}
+                onMouseLeave={() => setHoverIndex(0)}
+              >
+                {({ isActive }) => (
+                  <motion.button
+                    className={cn("flex items-center scale-100", {
+                      "drop-shadow-[0_3px_20px_rgba(225,225,225,1)]": isActive,
+                    })}
+                    whileTap={{
+                      scale: 0.9,
+                    }}
+                  >
+                    <div
+                      className={cn(
+                        "w-12 h-12 flex items-center justify-center"
+                      )}
+                    >
+                      {isActive ? (
+                        <item.solidIcon className="text-2xl text-white" />
+                      ) : navItems[hoverIndex]?.id === item.id ? (
+                        <item.solidIcon className="text-2xl text-white" />
+                      ) : (
+                        <item.outlineIcon className="text-2xl text-gray-400" />
+                      )}
+                    </div>
+                    <motion.span
+                      variants={variants}
+                      initial="closed"
+                      animate={navBarOpen ? "open" : "closed"}
+                      transition={{ duration: 0.3 }}
+                      className={cn(
+                        "text-xl text-gray-400 font-semibold group-hover/item:text-white",
+                        {
+                          "text-white": isActive,
+                        }
+                      )}
                     >
                       {item.name}
-                    </span>
-                  )}
-                </NavLink>
-              </li>
+                    </motion.span>
+                  </motion.button>
+                )}
+              </NavLink>
             ))}
-          </ul>
-          <SearchBox />
-        </>
-      ) : (
-        <Sheet>
-          <SheetTrigger asChild>
-            <Button variant="ghost">
-              <HiMenuAlt2 className="text-2xl" />
-            </Button>
-          </SheetTrigger>
-          <SheetContent>
-            <SheetHeader>
-              <SheetTitle>Menu</SheetTitle>
-            </SheetHeader>
-
-            <SearchBox />
-
-            <ul className="space-y-4 py-10 w-full">
-              {navItems.map((item) => (
-                <li key={item.name} className="w-full ">
-                  <SheetClose asChild>
-                    <NavLink to={item.path} className={"w-full inline-block"}>
-                      {({ isActive }) => (
-                        <span
-                          className={`${
-                            isActive
-                              ? "font-bold text-black bg-gray-50 "
-                              : "text-slate-400 bg-slate-50/10"
-                          } w-full inline-block p-2 rounded-lg text-center`}
-                        >
-                          {item.name}
-                        </span>
-                      )}
-                    </NavLink>
-                  </SheetClose>
-                </li>
-              ))}
-            </ul>
-          </SheetContent>
-        </Sheet>
-      )}
-    </header>
+          </div>
+        </nav>
+      </div>
+    </aside>
   );
 }
 
