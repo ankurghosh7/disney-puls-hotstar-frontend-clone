@@ -1,5 +1,5 @@
 import { Link, NavLink } from "react-router-dom";
-import { useMediaQuery } from "usehooks-ts";
+// import { useMediaQuery } from "usehooks-ts";
 import logo from "../../public/logo-d-plus.svg";
 import { RiHomeSmile2Line, RiHomeSmile2Fill } from "react-icons/ri";
 import { CiSearch } from "react-icons/ci";
@@ -22,9 +22,10 @@ interface navItemsProps {
   outlineIcon: IconType;
   solidIcon: IconType;
   isHovered: boolean;
+  id: number;
 }
 function NabBar() {
-  const [hoverIndex, setHoverIndex] = useState<number | null>(null);
+  const [hoverIndex, setHoverIndex] = useState<number>(0);
   const navItems: navItemsProps[] = [
     {
       name: "My Space",
@@ -32,6 +33,7 @@ function NabBar() {
       outlineIcon: PiUserCircle,
       solidIcon: PiUserCircleFill,
       isHovered: false,
+      id: 1,
     },
     {
       name: "Search",
@@ -39,6 +41,7 @@ function NabBar() {
       outlineIcon: CiSearch,
       solidIcon: CiSearch,
       isHovered: false,
+      id: 2,
     },
     {
       name: "Home",
@@ -46,6 +49,7 @@ function NabBar() {
       outlineIcon: RiHomeSmile2Line,
       solidIcon: RiHomeSmile2Fill,
       isHovered: false,
+      id: 3,
     },
     {
       name: "TV",
@@ -53,6 +57,7 @@ function NabBar() {
       outlineIcon: BiTv,
       solidIcon: BiSolidTv,
       isHovered: false,
+      id: 4,
     },
     {
       name: "Movies",
@@ -60,6 +65,7 @@ function NabBar() {
       outlineIcon: LuClapperboard,
       solidIcon: LuClapperboard,
       isHovered: false,
+      id: 5,
     },
     {
       name: "Sports",
@@ -67,6 +73,7 @@ function NabBar() {
       outlineIcon: MdOutlineSportsBaseball,
       solidIcon: MdSportsBaseball,
       isHovered: false,
+      id: 6,
     },
     {
       name: "Categories",
@@ -74,6 +81,7 @@ function NabBar() {
       outlineIcon: BiCategoryAlt,
       solidIcon: BiSolidCategoryAlt,
       isHovered: false,
+      id: 7,
     },
   ];
   const [navBarOpen, setNavBarOpen] = useState(false);
@@ -91,7 +99,7 @@ function NabBar() {
   };
 
   return (
-    <aside className="fixed w-24 h-screen z-30">
+    <aside className="fixed w-24 h-screen z-40">
       <div className="fixed z-30 w-24 h-auto">
         <div className="py-8">
           <Link to="/">
@@ -112,7 +120,7 @@ function NabBar() {
           <div
             className={cn("flex flex-col space-y-4 group/wrapper")}
             onMouseEnter={() => setNavBarOpen(true)}
-            // onMouseLeave={() => setNavBarOpen(false)}
+            onMouseLeave={() => setNavBarOpen(false)}
           >
             {navItems.map((item, index) => (
               <NavLink
@@ -123,7 +131,7 @@ function NabBar() {
                   "group/item mx-5 hover:scale-110 hover:translate-x-2 transition-all duration-200 ease-linear "
                 )}
                 onMouseEnter={() => setHoverIndex(index)}
-                onMouseLeave={() => setHoverIndex(null)}
+                onMouseLeave={() => setHoverIndex(0)}
               >
                 {({ isActive }) => (
                   <motion.button
@@ -141,7 +149,7 @@ function NabBar() {
                     >
                       {isActive ? (
                         <item.solidIcon className="text-2xl text-white" />
-                      ) : navItems[hoverIndex]?.name === item.name ? (
+                      ) : navItems[hoverIndex]?.id === item.id ? (
                         <item.solidIcon className="text-2xl text-white" />
                       ) : (
                         <item.outlineIcon className="text-2xl text-gray-400" />

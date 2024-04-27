@@ -3,14 +3,14 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { theMovieDBApiOptions } from "@/lib/constants";
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import {
   Pagination,
   PaginationContent,
   PaginationItem,
 } from "@/components/ui/pagination";
 import { Button } from "@/components/ui/button";
-import MovieCard from "@/components/MovieCard";
+// import MovieCard from "@/components/MovieCard";
 import { IoIosArrowBack } from "react-icons/io";
 import { useEffect } from "react";
 
@@ -24,7 +24,7 @@ function Search() {
     return <div>Search something</div>;
   }
   const page = parseInt(searchParams.get("page") || "1");
-  const { data, error, isLoading } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["search", search, page],
     queryFn: () =>
       axios.get(
@@ -47,19 +47,7 @@ function Search() {
     <div className="px-5 xl:px-20 mb-10 relative">
       <SearchBox className="w-full md:w-1/2 mx-auto" value={search} />
       {isLoading && <div>Loading...</div>}
-      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-5 md:p-5 my-10">
-        {isLoading && <div>Loading...</div>}
-        {error && <div>Error...</div>}
-        {data?.data.results.map((movie: any) => (
-          <Link to={`/movies/${movie?.id}`}>
-            <MovieCard
-              key={movie.id}
-              imageUrl={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-              title={movie.title}
-            />
-          </Link>
-        ))}
-      </div>
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-5 md:p-5 my-10"></div>
       <Pagination>
         <PaginationContent>
           <PaginationItem>

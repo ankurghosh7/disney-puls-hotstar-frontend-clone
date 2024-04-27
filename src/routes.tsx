@@ -3,7 +3,6 @@ import App from "./App";
 import { lazy } from "react";
 const Home = lazy(() => import("./pages/Home"));
 const Search = lazy(() => import("./pages/Search"));
-const AllMovies = lazy(() => import("./pages/AllMovies"));
 const Contact = lazy(() => import("./pages/Contact"));
 export const BrowserRouter = createBrowserRouter([
   {
@@ -17,7 +16,11 @@ export const BrowserRouter = createBrowserRouter([
       },
       {
         path: "/movies",
-        element: <AllMovies />,
+        element: (
+          <div>
+            <h1>movies page</h1>
+          </div>
+        ),
       },
       {
         path: "/shows",

@@ -32,39 +32,45 @@ const HeadContainer = ({
 
   const nameLogo = images?.logos.filter((logo) => logo.iso_639_1 === "en")[0]
     ?.file_path;
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     setActiveIndex((prev) => (prev + 1) % data.length);
-  //   }, 1000 * 60 * 3);
-  //   return () => clearTimeout(timer);
-  // }, [data.length]);
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     setShowTrailer(true);
-  //   }, 5000);
-  //   return () => clearTimeout(timer);
-  // }, [activeIndex]);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setActiveIndex((prev) => (prev + 1) % data.length);
+    }, 1000 * 60 * 2);
+    return () => clearTimeout(timer);
+  }, [data.length]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowTrailer(true);
+    }, 5000);
+    return () => {
+      clearTimeout(timer);
+      setShowTrailer(false);
+    };
+  }, [activeIndex, setActiveIndex]);
 
   return (
-    <div className="max-h-[58vw] h-screen relative ml-[-7rem]  ">
+    <div className="max-h-[58vw] h-screen min-h-screen relative ml-[-7rem] lg:mb-[-8rem] ">
       <div
         className="absolute h-full inset-0 w-full md:bg-zinc-950 top-0 left-0 right-0 bg-cover bg-current bg-top bg-no-repeat"
         style={{ opacity: divOpacity }}
       >
-        {showTrailer ? (
-          <BackgroundVideoPlyer id={trailerId} />
-        ) : (
-          <div className="w-full h-full pl-64 flex before:relative before:h-full before:block before:left-0 before:w-1/2 before:bg-gradient-to-r before:from-black bg-top ">
-            <img
-              src={`https://media.themoviedb.org/t/p/original${backdrop_path}`}
-              alt=""
-              className="w-full h-full object-cover "
-            />
-          </div>
-        )}
+        <div className="w-full h-full fixed">
+          {showTrailer ? (
+            <BackgroundVideoPlyer id={trailerId} />
+          ) : (
+            <div className="w-full h-full xl:pl-64 flex before:absolute before:h-full before:block  before:w-1/4 before:bg-gradient-to-r before:from-zinc-950 ">
+              <img
+                src={`https://media.themoviedb.org/t/p/original${backdrop_path}`}
+                alt=""
+                className="w-full h-full object-cover "
+              />
+            </div>
+          )}
+        </div>
       </div>
       <div className="sm:absolute h-full sm:w-full sm:bg-transparent sm:top-0 sm:left-0 z-10"></div>
-      <div className=" absolute bottom-0 flex justify-between w-full items-end pl-28 pr-8 lg:pr-10 xl:pr-20 pb-14 lg:pb-24 xl:pb-36 ">
+      <div className=" absolute bottom-0 flex justify-between w-full items-end pl-28 pr-8 lg:pr-10 xl:pr-20 pb-14 lg:pb-24 xl:pb-44 ">
         <div className="relative z-10 sm:max-w-[40vw] lg:max-w-[27vw] space-y-5">
           <motion.div className="space-y-4">
             <motion.div className="w-fit bg-cover max-h-20">

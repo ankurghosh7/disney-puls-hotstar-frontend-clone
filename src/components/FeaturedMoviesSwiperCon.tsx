@@ -1,13 +1,12 @@
 import { trendingDiscoverMoviesResultProps } from "@/helpers/trandingDiscover";
+import { scrollXFn } from "@/hooks/scrollX.ts";
 import { cn } from "@/lib/utils";
-import { useEffect, useRef, useState } from "react";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 
 const FeaturedMoviesSwiperCon = ({
   data,
   setActiveIndex,
-  setShowTrailer,
   activeIndex,
 }: {
   data: trendingDiscoverMoviesResultProps[];
@@ -15,54 +14,25 @@ const FeaturedMoviesSwiperCon = ({
   setShowTrailer: (b: boolean) => void;
   activeIndex: number;
 }) => {
-  const containerRef = useRef(null);
-  const [hiddenItemsCount, setHiddenItemsCount] = useState(0);
-
-  useEffect(() => {
-    const container = containerRef.current;
-    const containerWidth = container.offsetWidth;
-    const itemWidth = container.querySelector(".item").offsetWidth;
-
-    const totalItemsCount = data.length;
-    const visibleItemsCount = Math.floor(containerWidth / itemWidth);
-    const hiddenCount = totalItemsCount - visibleItemsCount;
-
-    setHiddenItemsCount(hiddenCount);
-  }, [data]);
-
-  const scrollHiddenItemsLeft = () => {
-    const container = containerRef.current;
-    const itemWidth = container.querySelector(".item").offsetWidth;
-    const scrollAmount = itemWidth * hiddenItemsCount + itemWidth * 2;
-
-    container.scrollBy({
-      top: 0,
-      left: scrollAmount,
-      behavior: "smooth",
-    });
-  };
-  const scrollHiddenItemsRight = () => {
-    const container = containerRef.current;
-    const itemWidth = container.querySelector(".item").offsetWidth;
-    const scrollAmount = itemWidth * hiddenItemsCount + itemWidth * 2;
-
-    container.scrollBy({
-      top: 0,
-      left: -scrollAmount,
-      behavior: "smooth",
-    });
-  };
-  console.log(hiddenItemsCount);
+  const {
+    containerRef,
+    scrollHiddenItemsLeft,
+    scrollHiddenItemsRight,
+    scrollLeft,
+  } = scrollXFn({ data, selector: "item" });
   return (
     <div className=" sm:w-72 lg:w-96 xl:w-[30rem] md:h-16">
       <div className="w-fyll h-full relative z-10 flex justify-end overflow-hidden">
         <button
           className={cn(
-            "h-10 lg:h-12 w-8 cursor-pointer  transition-all duration-300 ease-in-out absolute  bottom-0 transform  left-0 bg-gradient-to-r from-black z-20"
+            "h-10 lg:h-12 w-8 cursor-pointer  transition-all duration-300 ease-in-out absolute  bottom-0 transform  left-0 bg-gradient-to-r from-black z-20",
+            {
+              "hidden invisible opacity-0": scrollLeft <= 0,
+            }
           )}
           onClick={scrollHiddenItemsRight}
         >
-          <IoIosArrowBack className="w-8 h-8 text-white" />
+          <IoIosArrowBack className="w-6 h-6 text-white" />
         </button>
         <div
           className="flex space-x-2 items-end overflow-hidden pl-2"
@@ -92,15 +62,11 @@ const FeaturedMoviesSwiperCon = ({
         </div>
         <button
           className={cn(
-            "h-12 w-8 cursor-pointer  transition-all duration-300 ease-in-out absolute  bottom-0 transform  right-0 bg-gradient-to-r from-black z-20",
-            {
-              "hidden invisible opacity-0": hiddenItemsCount === 0,
-              "block visible opacity-100": hiddenItemsCount > 0,
-            }
+            "h-12 w-8 cursor-pointer  transition-all duration-300 ease-in-out absolute  bottom-0 transform  right-0 bg-gradient-to-l from-black z-20"
           )}
           onClick={scrollHiddenItemsLeft}
         >
-          <IoIosArrowForward className="w-8 h-8 text-white" />
+          <IoIosArrowForward className="w-6 h-6 text-white" />
         </button>
       </div>
     </div>
